@@ -14,7 +14,22 @@ public class PrimeNumberTest {
 	}
 
 	@Test
-	public void shouldReturnFalseIfNumberIsLessThanOne(){
-		assertThat(calculator.isPrime(0), is(false));
+	public void shouldReturnFalseIfNumberIsOneOrLess(){
+		assertThat(calculator.isPrime(1), is(false));
+	}
+	
+	@Test
+	public void shouldReturnFalseIfNumberIsDivisibleByMoreThanJustItselfAndOne() {
+		assertThat(calculator.isPrime(6), is(false));
+	}
+	
+	@Test
+	public void shouldReturnTrueIfNumberIsDivisibleByMoreThanJustItselfAndOne() {
+		assertThat(calculator.isComposite(6), is(true));
+	}
+	
+	@Test
+	public void shouldReturnFalseIfNumberIsPrime() {
+		assertThat(calculator.isComposite(17), is(false));
 	}
 }
