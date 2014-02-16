@@ -2,15 +2,16 @@ package communitykatas.learning.primes;
 
 public class PrimeCalculator {
 	private static final int MIN_PRIME_BOUNDARY = 1;
+	private PrimeStrategy[] primeCriteria = new PrimeStrategy[] { new IsLessThanOne(), new IsDivisibleByManyNumbers()};
+	
 
 	public Boolean isPrime(int value) {
-		if (isLessThanOne(value)) {
-			return false;
-		} else if (canDivideManyNumbersInto(value)) {
-			return false;
-		} else {
-			return true;
+		boolean isInvalid = false;
+		for(PrimeStrategy strategy : primeCriteria) {
+			isInvalid = isInvalid || strategy.evaluate(value);
 		}
+		
+		return !isInvalid;
 	}
 
 	private boolean canDivideManyNumbersInto(int value) {
@@ -25,10 +26,6 @@ public class PrimeCalculator {
 
 	private boolean isDivisibleByManyNumbers(int value, int i) {
 		return value % i > 0;
-	}
-
-	private boolean isLessThanOne(int number) {
-		return number <= MIN_PRIME_BOUNDARY;
 	}
 
 	public Boolean isComposite(int value) {
